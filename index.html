@@ -12,6 +12,15 @@
            VARIABLE CSS & RESET
            ========================================= */
         :root {
+            /* Blochează orice element care vrea să iasă din ecran, pe tot site-ul */
+html, body {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow-x: hidden !important; /* Taie instant jocul stânga-dreapta */
+    position: relative;
+}
             --primary-blue: #002d5b;
             --dark-blue: #001a35;
             --accent-gold: #d4af37;
