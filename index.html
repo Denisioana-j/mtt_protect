@@ -804,8 +804,17 @@
     /* =========================================
    STILURI SPECIFICE PENTRU MOBIL & TABLETE
    ========================================= */
+/* =========================================
+   STILURI SPECIFICE PENTRU MOBIL & TABLETE
+   ========================================= */
 @media (max-width: 768px) {
-    /* Topbar - ascundem programul ca să nu ocupe spațiu, lăsăm doar Linia Verde */
+    /* Eliminare joc stânga-dreapta și aliniere containere */
+    html, body, .container, .container-wide, section, div {
+        max-width: 100% !important;
+        box-sizing: border-box;
+    }
+
+    /* Topbar - lăsăm doar Linia Verde pe mobil */
     .container-wide {
         flex-direction: column;
         gap: 10px;
@@ -814,10 +823,10 @@
     }
     
     .program-lucru {
-        display: none; /* Ascunde programul pe ecrane foarte mici */
+        display: none !important; 
     }
 
-    /* Header - așezăm elementele pe verticală */
+    /* Header - elementele se așează pe verticală */
     .main-header {
         flex-direction: column;
         gap: 15px;
@@ -825,7 +834,7 @@
         padding: 15px 10px;
     }
 
-    /* Logo - îl facem puțin mai mic să nu ocupe tot ecranul */
+    /* Logo - redimensionat pentru ecrane mici */
     .logo-box {
         flex-direction: column;
         gap: 10px;
@@ -846,7 +855,7 @@
         letter-spacing: 1px;
     }
 
-    /* Butonul de Reclamație - îl facem să ocupe toată lățimea pe mobil pentru a fi ușor de apăsat */
+    /* Butonul devine complet tactil (lățime maximă) */
     .cta-header {
         width: 100%;
     }
@@ -857,9 +866,9 @@
         font-size: 15px;
     }
 
-    /* Formularul Modal - să ocupe tot ecranul pe telefon fără spații inutile */
+    /* Formularul Modal pe ecranul telefonului */
     .modal-content {
-        width: 95%;
+        width: 95% !important;
         padding: 20px;
         max-height: 90vh;
     }
@@ -868,25 +877,26 @@
         font-size: 18px;
     }
 
-    /* Grid-ul de inputuri devine o singură coloană */
+    /* Grid-ul de inputuri trece de pe 2 coloane pe o singură coloană */
     .form-grid {
         grid-template-columns: 1fr !important;
-        gap: 15px;
+        gap: 15px !important;
     }
 
     .form-group.full-width {
         grid-column: span 1 !important;
     }
 
-    /* Ascundem ștampila pe mobil ca să nu se suprapună cu textul */
+    /* Ascundem ștampila digitală ca să nu se suprapună cu textul */
     .stamp-container {
         display: none !important;
     }
     
+    /* Butonul de închidere (X) mai mare pentru degete */
     .close-modal {
         top: 10px;
         right: 15px;
-        font-size: 32px; /* Mai mare, să poată fi apăsat ușor cu degetul */
+        font-size: 32px;
     }
 }
 </style>
