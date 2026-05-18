@@ -961,6 +961,57 @@ html, body {
         white-space: nowrap !important; /* Împiedică textul din buton să se rupă urât */
     }
     }
+    /* =========================================
+       REPARARE REZOLUTIE MENIU ȘI CĂUTARE
+       ========================================= */
+
+    /* Forțăm meniul alb (Acasă, Legislație etc.) să se rupă în mai multe rânduri sau pe verticală */
+    .nav, nav, [class*="menu"], [class*="nav"] {
+        display: flex !important;
+        flex-wrap: wrap !important; /* Permite elementelor să treacă pe rândul următor */
+        justify-content: center !important;
+        width: 100% !important;
+        padding: 5px 0 !important;
+    }
+
+    /* Fiecare buton din meniu să aibă loc și să nu forțeze ecranul */
+    .nav a, nav a, [class*="menu"] a, [class*="nav"] a {
+        font-size: 13px !important; /* Îl facem un pic mai mic pe mobil */
+        padding: 8px 10px !important;
+        white-space: normal !important; /* Permite textului lung (ex: Registrul Produselor) să se rupă pe două rânduri în casetă */
+        text-align: center !important;
+    }
+
+    /* Secțiunea albastră de căutare (cu textul "Siguranța ta...") */
+    /* Presupun că ai o clasă de tip hero, search-section sau container */
+    div:has(> input[type="text"]) {
+        padding: 20px 10px !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
+    }
+
+    /* Îți punem o regulă specială pentru rândul cu Caseta de text + Butonul CAUTĂ */
+    div:has(> input[type="text"]) > div, 
+    .search-container, 
+    [class*="search"] {
+        display: flex !important;
+        flex-direction: column !important; /* Pune butonul CAUTĂ sub caseta de text */
+        align-items: center !important;
+        width: 100% !important;
+        gap: 10px !important;
+    }
+
+    /* Caseta albă de input (Căutare produs...) */
+    input[type="text"], input[placeholder*="Căutare"] {
+        width: 90% !important; /* Nu o lăsăm să atingă marginile */
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+    }
+
+    /* Butonul galben CAUTĂ */
+    button, .btn, [class*="btn"] {
+        max-width: 90% !important;
+    }
 }
 </style>
 
