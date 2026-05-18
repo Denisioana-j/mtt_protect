@@ -1,0 +1,924 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MTT Protect - Autoritatea Națională pentru Siguranța Consumatorului</title>
+    <!-- Fonturi profesionale -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* =========================================
+           VARIABLE CSS & RESET
+           ========================================= */
+        :root {
+            --primary-blue: #002d5b;
+            --dark-blue: #001a35;
+            --accent-gold: #d4af37;
+            --light-gold: #f4e6b5;
+            --bg-gray: #f8f9fa;
+            --text-dark: #222;
+            --text-light: #555;
+            --white: #ffffff;
+            --border-color: #dee2e6;
+            --shadow: 0 4px 12px rgba(0,0,0,0.1);
+            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        * {
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Roboto', sans-serif;
+            background-color: var(--bg-gray);
+            color: var(--text-dark);
+            overflow-x: hidden;
+        }
+
+        /* =========================================
+           TOPBAR & HEADER (LINIA VERDE)
+           ========================================= */
+        .top-bar {
+            background-color: var(--dark-blue);
+            color: var(--white);
+            padding: 8px 0;
+            font-size: 13px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .container-wide {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 0 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .linia-verde {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .verde-tag {
+            background-color: #28a745;
+            padding: 2px 8px;
+            border-radius: 3px;
+            font-weight: bold;
+            animation: pulse 2s infinite;
+        }
+
+        header {
+            background-color: var(--primary-blue);
+            color: var(--white);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: var(--shadow);
+            border-bottom: 4px solid var(--accent-gold);
+        }
+
+        .main-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 15px 0;
+        }
+
+        .logo-box {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            text-decoration: none;
+            color: white;
+        }
+
+        .mtt-logo-circle {
+            width: 75px;
+            height: 75px;
+            background: linear-gradient(135deg, var(--primary-blue), #004a92);
+            border: 3px solid var(--accent-gold);
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 11px;
+            line-height: 1.1;
+            box-shadow: 0 0 15px rgba(0,0,0,0.3);
+        }
+
+        .institution-titles h1 {
+            margin: 0;
+            font-size: 22px;
+            font-family: 'Playfair Display', serif;
+            letter-spacing: 1px;
+        }
+
+        .institution-titles p {
+            margin: 0;
+            font-size: 12px;
+            text-transform: uppercase;
+            color: var(--light-gold);
+            letter-spacing: 2px;
+        }
+
+        /* =========================================
+           NAVIGATION
+           ========================================= */
+        nav {
+            background-color: var(--white);
+            padding: 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .nav-links li a {
+            display: block;
+            padding: 15px 25px;
+            text-decoration: none;
+            color: var(--primary-blue);
+            font-weight: bold;
+            font-size: 14px;
+            transition: var(--transition);
+            border-bottom: 3px solid transparent;
+        }
+
+        .nav-links li a:hover, .nav-links li a.active {
+            background-color: #f0f4f8;
+            border-bottom: 3px solid var(--accent-gold);
+        }
+
+        /* =========================================
+           HERO SECTION & SEARCH
+           ========================================= */
+        .hero-banner {
+            background: linear-gradient(rgba(0,45,91,0.8), rgba(0,45,91,0.8)), url('https://images.unsplash.com/photo-1542831371-29b0f74f9713?q=80&w=1200&auto=format');
+            background-size: cover;
+            background-position: center;
+            padding: 60px 0;
+            color: white;
+            text-align: center;
+        }
+
+        .search-container {
+            max-width: 800px;
+            margin: 30px auto 0;
+            display: flex;
+            gap: 10px;
+        }
+
+        .search-container input {
+            flex: 1;
+            padding: 15px 25px;
+            border-radius: 30px;
+            border: none;
+            font-size: 16px;
+            box-shadow: var(--shadow);
+        }
+
+        .btn-search {
+            background-color: var(--accent-gold);
+            color: var(--dark-blue);
+            border: none;
+            padding: 0 30px;
+            border-radius: 30px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        /* =========================================
+           MAIN LAYOUT (SIDEBAR + CONTENT)
+           ========================================= */
+        .main-content-area {
+            display: flex;
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .sidebar {
+            flex: 1;
+            max-width: 300px;
+        }
+
+        .content-main {
+            flex: 3;
+        }
+
+        .widget {
+            background: white;
+            border: 1px solid var(--border-color);
+            padding: 20px;
+            margin-bottom: 30px;
+            border-top: 4px solid var(--primary-blue);
+        }
+
+        .widget-title {
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .alert-item {
+            padding: 10px 0;
+            border-bottom: 1px dashed #eee;
+            font-size: 13px;
+        }
+
+        .alert-item.danger { color: #d9534f; font-weight: bold; }
+
+        /* =========================================
+           PRODUCT GRID & CARDS
+           ========================================= */
+        .category-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .tab-btn {
+            background: #e9ecef;
+            border: none;
+            padding: 8px 18px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: bold;
+            color: var(--text-light);
+            transition: var(--transition);
+        }
+
+        .tab-btn.active {
+            background: var(--primary-blue);
+            color: white;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 30px;
+        }
+
+        .p-card {
+            background: white;
+            border: 1px solid var(--border-color);
+            border-radius: 0;
+            overflow: hidden;
+            transition: var(--transition);
+            cursor: pointer;
+            position: relative;
+        }
+
+        .p-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+            border-color: var(--accent-gold);
+        }
+
+        .p-img-box {
+            height: 180px;
+            overflow: hidden;
+            background: #eee;
+        }
+
+        .p-img-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+
+        .p-info {
+            padding: 15px;
+            text-align: center;
+        }
+
+        .p-category {
+            font-size: 10px;
+            text-transform: uppercase;
+            color: var(--accent-gold);
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+
+        .p-title {
+            margin: 8px 0;
+            font-size: 17px;
+            color: var(--primary-blue);
+        }
+
+        .p-date {
+            font-size: 12px;
+            color: #777;
+            display: block;
+            margin-top: 10px;
+        }
+
+        /* =========================================
+           DETAIL VIEW & PDF SIMULATION
+           ========================================= */
+        .view-section { display: none; }
+        .view-section.active { display: block; }
+
+        .breadcrumb {
+            margin-bottom: 20px;
+            font-size: 14px;
+            color: var(--text-light);
+        }
+
+        .product-detail-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            background: white;
+            padding: 40px;
+            border: 1px solid var(--border-color);
+        }
+
+        .detail-gallery img {
+            width: 100%;
+            max-height: 400px;
+            object-fit: cover;
+            border: 10px solid var(--bg-gray);
+            box-shadow: var(--shadow);
+        }
+
+        .detail-specs {
+            padding: 20px;
+            background: var(--bg-gray);
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+
+        .spec-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid #ddd;
+        }
+
+        /* PDF Styling */
+        .pdf-document {
+            background: white;
+            width: 100%;
+            max-width: 850px;
+            margin: 60px auto;
+            border: 2px solid #333;
+            padding: 60px;
+            position: relative;
+            box-shadow: 20px 20px 0px rgba(0,0,0,0.05);
+            font-family: 'Times New Roman', Times, serif;
+        }
+
+        .pdf-header {
+            text-align: center;
+            border-bottom: 3px double #333;
+            padding-bottom: 20px;
+            margin-bottom: 40px;
+        }
+
+        .pdf-watermark {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(-45deg);
+            font-size: 80px;
+            color: rgba(0,0,0,0.03);
+            pointer-events: none;
+            z-index: 0;
+            white-space: nowrap;
+        }
+
+        .pdf-stamp {
+            position: absolute;
+            bottom: 50px;
+            right: 80px;
+            width: 150px;
+            height: 150px;
+            border: 5px double var(--primary-blue);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: var(--primary-blue);
+            font-weight: bold;
+            transform: rotate(-15deg);
+            opacity: 0.7;
+            font-size: 14px;
+        }
+
+        /* =========================================
+           FOOTER
+           ========================================= */
+        footer {
+            background-color: var(--dark-blue);
+            color: white;
+            padding: 60px 0 20px;
+            margin-top: 80px;
+            border-top: 10px solid var(--accent-gold);
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-col h4 {
+            color: var(--accent-gold);
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            font-size: 16px;
+        }
+
+        .footer-links {
+            list-style: none;
+            padding: 0;
+        }
+
+        .footer-links li { margin-bottom: 10px; }
+        .footer-links li a { color: #ccc; text-decoration: none; font-size: 14px; }
+        .footer-links li a:hover { color: white; text-decoration: underline; }
+
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.6; }
+            100% { opacity: 1; }
+        }
+
+        @media (max-width: 992px) {
+            .main-content-area { flex-direction: column; }
+            .sidebar { max-width: 100%; order: 2; }
+            .product-detail-layout { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- TOPBAR -->
+    <div class="top-bar">
+        <div class="container-wide">
+            <div class="linia-verde">
+                <span class="verde-tag">LINIA VERDE</span>
+                <strong>0800 000 MTT</strong> (Apel Gratuit)
+            </div>
+            <div class="program-lucru">
+                Program de lucru: Luni - Vineri | 08:30 - 16:30
+            </div>
+        </div>
+    </div>
+
+    <!-- HEADER -->
+    <header>
+        <div class="container-wide main-header">
+            <a href="#" class="logo-box" onclick="showSection('home')">
+                <div class="mtt-logo-circle">
+                    MTT<br>PROTECT
+                </div>
+                <div class="institution-titles">
+                    <h1>GUVERNUL ROMÂNIEI</h1>
+                    <p>Protecția Consumatorului și Siguranța Alimentară</p>
+                </div>
+            </a>
+            <div class="cta-header">
+                <button id="btnDeschideReclamatie" class="tab-btn" style="background: var(--accent-gold); color: black; border-radius: 5px; border:none; padding: 10px 20px; font-weight:bold; cursor:pointer;">DEPUNE RECLAMAȚIE</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- NAVIGATION -->
+    <nav>
+        <div class="container-wide">
+            <ul class="nav-links">
+                <li><a href="#" class="active" id="nav-home" onclick="showSection('home')">ACASĂ</a></li>
+                <li><a href="#" id="nav-registru" onclick="showSection('registru')">REGISTRUL PRODUSELOR</a></li>
+                <li><a href="#" id="nav-legislatie" onclick="showSection('legislatie')">LEGISLAȚIE</a></li>
+                <li><a href="#" id="nav-contact" onclick="showSection('contact')">CONTACT</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- SECTION: HOME -->
+    <div id="section-home" class="view-section active">
+        <div class="hero-banner">
+            <div class="container-wide">
+                <h2 style="font-size: 40px; margin-bottom: 10px;">Siguranța ta este prioritatea noastră.</h2>
+                <p style="font-size: 18px;">Verifică în timp real trasabilitatea produselor alimentare din piețele românești.</p>
+                <div class="search-container">
+                    <input type="text" id="main-search" placeholder="Căutare produs (ex: Lapte, Carne de Vită, Mere...)" onkeyup="filterBySearch(this.value)">
+                    <button class="btn-search">CAUTĂ</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="container-wide">
+            <div class="main-content-area">
+                <!-- SIDEBAR -->
+                <aside class="sidebar">
+                    <div class="widget">
+                        <div class="widget-title">🔔 ALERTE ALIMENTARE</div>
+                        <div class="alert-item danger">RECHEMARE: Brânză de vaci lot #442 - Suspicune E.Coli</div>
+                        <div class="alert-item">NOTIFICARE: Actualizare norme igienă piețe volante</div>
+                        <div class="alert-item danger">ALERTA: Pesticide peste limite - Mere import lot B4</div>
+                        <div class="alert-item">INFO: Campanie verificare trasabilitate carne miel</div>
+                    </div>
+
+                    <div class="widget">
+                        <div class="widget-title">📊 STATISTICI LUNARE</div>
+                        <p style="font-size: 13px;">Controale efectuate: 1,452<br>Amenzi aplicate: 89<br>Produse retrase: 12 tone</p>
+                    </div>
+                </aside>
+
+                <!-- MAIN PRODUCT AREA -->
+                <main class="content-main">
+                    <div class="category-tabs">
+                        <button class="tab-btn active" onclick="filterCategory('Toate', this)">Toate Produsele</button>
+                        <button class="tab-btn" onclick="filterCategory('Carne', this)">Carne & Preparate</button>
+                        <button class="tab-btn" onclick="filterCategory('Lactate', this)">Lactate</button>
+                        <button class="tab-btn" onclick="filterCategory('Vegetale', this)">Fructe & Legume</button>
+                        <button class="tab-btn" onclick="filterCategory('Altele', this)">Altele</button>
+                    </div>
+
+                    <div class="products-grid" id="product-display">
+                        <!-- Generat de JS -->
+                    </div>
+                </main>
+            </div>
+        </div>
+    </div>
+
+    <!-- SECTION: PRODUCT DETAIL -->
+    <div id="section-detail" class="view-section">
+        <div class="container-wide" style="padding-top: 40px;">
+            <div class="breadcrumb">
+                <a href="#" onclick="showSection('home')">Acasă</a> > <span id="bread-p-name">Produs</span>
+            </div>
+
+            <div id="dynamic-detail-content">
+                <!-- Conținut dinamic -->
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="container-wide">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <div class="mtt-logo-circle" style="background: white; color: var(--primary-blue); border-color: white;">MTT<br>PROTECT</div>
+                    <p style="margin-top:20px; font-size: 13px; line-height: 1.6;">
+                        MTT Protect este organismul oficial de monitorizare a calității produselor destinate consumului uman, sub egida Guvernului României.
+                    </p>
+                </div>
+                <div class="footer-col">
+                    <h4>Legături Utile</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">Autoritatea Veterinară (ANSVSA)</a></li>
+                        <li><a href="#">Ministerul Agriculturii</a></li>
+                        <li><a href="#">Protecția Datelor (GDPR)</a></li>
+                        <li><a href="#">Raport de Activitate 2025</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Contact Instituțional</h4>
+                    <p style="font-size: 14px; color: #ccc;">
+                        Adresă: Bulevardul Revoluției nr. 1, București<br>
+                        Email: contact@mtt-protect.ro<br>
+                        Tel: +40 21 000 00 00
+                    </p>
+                </div>
+            </div>
+            <div style="text-align: center; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 20px; font-size: 12px; color: #777;">
+                © 2026 MTT Protect - Toate drepturile rezervate. Site creat în scop de informare publică.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Baza de date cu imagini noi, sigure de la Unsplash
+        const produse = [
+            { id: 1, cat: "Carne", nume: "Ceafă Porc Proaspătă", data: "11.05.2026", ferma: "Ferma Salonta, Bihor", desc: "Carne de porc de calitate superioară, provenită din animale crescute tradițional.", img: "https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=600&q=80" },
+            { id: 2, cat: "Lactate", nume: "Brânză de Burduf", data: "10.05.2026", ferma: "Stâna Fundata, Brașov", desc: "Brânză maturată în coajă de brad, gust intens și textură cremoasă.", img: "https://upload.wikimedia.org/wikipedia/commons/2/2f/Branza_burduf_feteasca_neagra.jpg" },
+            { id: 3, cat: "Vegetale", nume: "Mere Ionatan", data: "05.05.2026", ferma: "Livezile Voinești", desc: "Mere dulci-acrișoare, fără tratamente chimice excesive.", img: "https://images.unsplash.com/photo-1567306226416-28f0efdc88ce?auto=format&fit=crop&w=600&q=80" },
+            { id: 4, cat: "Carne", nume: "Vită Angus Bio", data: "12.05.2026", ferma: "Angus Transilvania", desc: "Carne de vită maturată, bogată în nutrienți, de la animale crescute pe pășune.", img: "https://angustos.ro/wp-content/uploads/2018/11/de-ce-black-angus.jpg" },
+            { id: 5, cat: "Lactate", nume: "Iaurt de Capră", data: "13.05.2026", ferma: "Bio-Farm Olt", desc: "Produs natural, ușor digerabil, preparat după metode artizanale.", img: "https://images.unsplash.com/photo-1488477181946-6428a0291777?auto=format&fit=crop&w=600&q=80" },
+            { id: 6, cat: "Vegetale", nume: "Roșii Grădină", data: "12.05.2026", ferma: "Serele Matca, Galați", desc: "Roșii zemoase cu gust autentic, cultivate în pământ românesc.", img: "https://images.unsplash.com/photo-1592924357228-91a4daadcfea?auto=format&fit=crop&w=600&q=80" },
+            { id: 7, cat: "Altele", nume: "Miere Salcâm Pură", data: "15.04.2026", ferma: "Stupina Regală", desc: "Miere monofloră extrasă la rece, bogată în vitamine.", img: "https://www.medlife.ro/sites/default/files/styles/banner_blog_desktop/public/2025-02/miere-de-salcam-in-bol-langa-flori-de-salcam-0.jpg.webp?itok=X-OqxGO9" },
+            { id: 8, cat: "Carne", nume: "Cârnați de Pleșcoi", data: "09.05.2026", ferma: "Tradiție Buzău", desc: "Produs tradițional atestat, din carne de oaie și vită.", img: "https://retete.unica.ro/wp-content/uploads/2024/12/reteta-de-carnati-de-plescoi.png" },
+            { id: 9, cat: "Vegetale", nume: "Cartofi Noi", data: "08.05.2026", ferma: "Agro Lungulețu", desc: "Cartofi timpurii, selecționați pentru calitate superioară.", img: "https://thelemonflavour.com/wp-content/uploads/2021/05/cartofi-noi-la-cuptor-cu-usturoi-si-rozmarin2.jpg" },
+            { id: 10, cat: "Lactate", nume: "Telemea de Oaie", data: "07.05.2026", ferma: "Oierii din Sibiu", desc: "Telemea maturată în saramură, gust tradițional sibian.", img: "https://labradeanu.ro/cdn/shop/files/DSC0783_1880x.jpg?v=1773657275" },
+            { id: 11, cat: "Altele", nume: "Ouă de Casă", data: "12.05.2026", ferma: "Avicola Avrig", desc: "Ouă proaspete de la găini crescute liber, cu furaje naturale.", img: "https://images.unsplash.com/photo-1582722872445-44dc5f7e3c8f?auto=format&fit=crop&w=600&q=80" },
+            { id: 12, cat: "Vegetale", nume: "Castraveți Cornichon", data: "10.05.2026", ferma: "Legume Vidra", desc: "Castraveți proaspeți, crocanți, ideali pentru salate.", img: "https://images.unsplash.com/photo-1449300079323-02e209d9d3a6?auto=format&fit=crop&w=600&q=80" },
+            { id: 13, cat: "Carne", nume: "Pui de Baltă", data: "11.05.2026", ferma: "Delta Dunării", desc: "Carne delicată, certificată ecologic.", img: "https://images.unsplash.com/photo-1587593810167-a84920ea0781?auto=format&fit=crop&w=600&q=80" },
+            { id: 14, cat: "Lactate", nume: "Sana Naturală", data: "13.05.2026", ferma: "Lactate Brădet", desc: "Produs lactat fermentat, sursă excelentă de calciu.", img: "https://karpatenmilk.ro/sites/default/files/styles/watermark/public/2020-08/karpaten_milk_190.jpg?itok=0o7z8c5I" },
+            { id: 15, cat: "Vegetale", nume: "Căpșuni Proaspete", data: "12.05.2026", ferma: "Satu Mare", desc: "Fructe parfumate, recoltate manual la maturitate.", img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT3-aBg5Jz335F-MaqbRzZsipMci0POHMZxrw&s" },
+            { id: 16, cat: "Altele", nume: "Ulei Presat la Rece", data: "01.03.2026", ferma: "Moara Bio", desc: "Ulei nerafinat, păstrează toate proprietățile semințelor.", img: "https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?auto=format&fit=crop&w=600&q=80" },
+            { id: 17, cat: "Carne", nume: "Pastramă Oaie", data: "10.05.2026", ferma: "Stâna Jina", desc: "Afumată cu lemn de fag, rețetă ciobănească.", img: "https://www.fermadincurte.ro/uploads/produse/1440/57--pastrama-de-oaie-pulpa_1655316869.jpg" },
+            { id: 18, cat: "Vegetale", nume: "Ceapă Roșie", data: "15.04.2026", ferma: "Făgăraș", desc: "Ceapă de calitate, rezistentă și aromată.", img: "https://images.unsplash.com/photo-1618512496248-a07fe83aa8cb?auto=format&fit=crop&w=600&q=80" },
+            { id: 19, cat: "Lactate", nume: "Cașcaval Afumat", data: "12.05.2026", ferma: "Lactate Ibănești", desc: "Produs tradițional, afumat natural.", img: "https://retete.unica.ro/wp-content/uploads/2024/02/cascaval-afumat-de-casa.png" },
+            { id: 20, cat: "Vegetale", nume: "Varză Nouă", data: "11.05.2026", ferma: "Agro-Slobozia", desc: "Varză fragedă, recoltată recent.", img: "https://mediacdn.libertatea.ro/unsafe/1200x664/smart/filters:format(webp):contrast(8):quality(75)/https://static4.libertatea.ro/wp-content/uploads/2021/03/varza-beneficii-retete.jpg" },
+            { id: 21, cat: "Altele", nume: "Pâine Artizanală", data: "13.05.2026", ferma: "Vatra Veche", desc: "Pâine cu maia, coaptă la foc de lemne.", img: "https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=600&q=80" },
+            { id: 22, cat: "Carne", nume: "Iepure Bio", data: "05.05.2026", ferma: "Crescătorie Mureș", desc: "Carne dietetică, recomandată pentru copii.", img: "https://organicsfood.ro/wp-content/uploads/2021/07/ca8f9da0.jpg" },
+            { id: 23, cat: "Vegetale", nume: "Usturoi Copălău", data: "10.04.2026", ferma: "Copălău, Botoșani", desc: "Cel mai apreciat usturoi românesc, gust puternic.", img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcROkgwGN1yp3P1bh5WUInzzYtgs39ikYrpZYw&s" },
+            { id: 24, cat: "Lactate", nume: "Unt Tradițional", data: "13.05.2026", ferma: "Bucovina Farm", desc: "Unt gras, obținut prin smântânire naturală.", img: "https://images.unsplash.com/photo-1589985270826-4b7bb135bc9d?auto=format&fit=crop&w=600&q=80" },
+            { id: 25, cat: "Vegetale", nume: "Pere Williams", data: "20.10.2025", ferma: "Pomicola Itrești", desc: "Pere zemoase, păstrate în mediu controlat.", img: "https://media.riverford.co.uk/images/1300x1300-83ea2dd25659b47d187a909d0e8cf864.jpg" },
+            { id: 26, cat: "Altele", nume: "Vin Fetească", data: "15.09.2024", ferma: "Cotnari", desc: "Vin alb sec, certificat DOC.", img: "https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?auto=format&fit=crop&w=600&q=80" },
+            { id: 27, cat: "Carne", nume: "Slănină Afumată", data: "01.02.2026", ferma: "Maramureș", desc: "Produs tradițional maramureșean.", img: "https://shop.petry.ro/wp-content/uploads/2026/02/GFX-2679-scaled.jpg" },
+            { id: 28, cat: "Vegetale", nume: "Ardei Capia", data: "10.05.2026", ferma: "Grădini Bio", desc: "Ardei dulci, cultivați fără pesticide.", img: "https://img.gs/shcfmqtrbf/1160x653,fit,quality=medium/https://doc.ro/uploads/photos/uploads/2023/IUNIE/Beneficii-ardei-capia.png" },
+            { id: 29, cat: "Lactate", nume: "Urdă Proaspătă", data: "12.05.2026", ferma: "Lacto-Vânători", desc: "Produs dietetic, bogat în proteine.", img: "https://images.unsplash.com/photo-1559561853-08451507cbe7?auto=format&fit=crop&w=600&q=80" },
+            { id: 30, cat: "Altele", nume: "Miez Nucă", data: "15.11.2025", ferma: "Dumbrava Nuci", desc: "Nucă selecționată, uscată natural.", img: "https://fruit2go.md/storage//pages/1710431129AdobeStock_394223606.jpeg" }
+        ];
+
+        function renderProducts(items) {
+            const grid = document.getElementById('product-display');
+            grid.innerHTML = '';
+            
+            items.forEach(p => {
+                const card = document.createElement('div');
+                card.className = 'p-card';
+                card.onclick = () => openDetails(p);
+                card.innerHTML = `
+                    <div class="p-img-box"><img src="${p.img}" alt="${p.nume}" onerror="this.src='https://via.placeholder.com/400x300?text=Imagine+Indisponibila'"></div>
+                    <div class="p-info">
+                        <span class="p-category">${p.cat}</span>
+                        <h3 class="p-title">${p.nume}</h3>
+                        <span class="p-date">Valabil din: ${p.data}</span>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        function showSection(sectionId) {
+            document.querySelectorAll('.view-section').forEach(s => s.classList.remove('active'));
+            document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+            
+            document.getElementById('section-' + sectionId).classList.add('active');
+            const navLink = document.getElementById('nav-' + (sectionId === 'detail' ? 'registru' : sectionId));
+            if(navLink) navLink.classList.add('active');
+            window.scrollTo(0,0);
+        }
+
+        function filterCategory(cat, btn) {
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            
+            if(cat === 'Toate') {
+                renderProducts(produse);
+            } else {
+                const filtered = produse.filter(p => p.cat === cat);
+                renderProducts(filtered);
+            }
+        }
+
+        function filterBySearch(query) {
+            const filtered = produse.filter(p => p.nume.toLowerCase().includes(query.toLowerCase()));
+            renderProducts(filtered);
+        }
+
+        function openDetails(p) {
+            showSection('detail');
+            document.getElementById('bread-p-name').innerText = p.nume;
+            
+            const detailBox = document.getElementById('dynamic-detail-content');
+            detailBox.innerHTML = `
+                <div class="product-detail-layout">
+                    <div class="detail-gallery">
+                        <img src="${p.img}" alt="${p.nume}" onerror="this.src='https://via.placeholder.com/600x400?text=Imagine+Indisponibila'">
+                    </div>
+                    <div class="detail-info-pane">
+                        <h1 style="color:var(--primary-blue); font-family:'Playfair Display'; margin-top:0;">${p.nume}</h1>
+                        <p style="font-size: 16px; line-height: 1.6; color: #555;">${p.desc}</p>
+                        
+                        <div class="detail-specs">
+                            <div class="spec-row"><strong>Categorie:</strong> <span>${p.cat}</span></div>
+                            <div class="spec-row"><strong>Unitate de Producție:</strong> <span>${p.ferma}</span></div>
+                            <div class="spec-row"><strong>Data Certificării:</strong> <span>${p.data}</span></div>
+                            <div class="spec-row"><strong>ID Trasabilitate:</strong> <span>#MTT-2026-${p.id}</span></div>
+                            <div class="spec-row"><strong>Verificare Sanitară:</strong> <span style="color:green; font-weight:bold;">CONFIRMATĂ ✓</span></div>
+                        </div>
+                        
+                        <button class="btn-search" style="margin-top:20px; width:100%; height:50px; cursor:pointer;" onclick="window.print()">GENEREAZĂ PDF OFICIAL</button>
+                    </div>
+                </div>
+
+                <div class="pdf-document">
+                    <div class="pdf-watermark">CERTIFICAT MTT PROTECT</div>
+                    <div class="pdf-header">
+                        <h3>GUVERNUL ROMÂNIEI</h3>
+                        <h2 style="margin: 5px 0;">AUTORITATEA NAȚIONALĂ PENTRU SIGURANȚA ALIMENTARĂ</h2>
+                        <p>Departamentul de Control MTT PROTECT</p>
+                    </div>
+
+                    <h1 style="text-align:center; text-decoration: underline; font-size: 28px;">CERTIFICAT DE CONFORMITATE</h1>
+                    <p style="text-align:right;">Seria: <strong>DG-RO / 00${p.id}</strong></p>
+
+                    <div style="margin: 40px 0; line-height: 1.8; font-size: 18px; text-align: justify;">
+                        Prin prezenta, autoritatea competentă <strong>MTT PROTECT</strong> confirmă faptul că produsul alimentar 
+                        <strong>${p.nume.toUpperCase()}</strong> provenit de la unitatea <strong>${p.ferma}</strong> 
+                        a fost supus verificărilor periodice și îndeplinește toate condițiile de comercializare conform normelor 
+                        sanitar-veterinare în vigoare la data de ${p.data}.
+                        <br><br>
+                        Produsul beneficiază de garanția trasabilității complete și a fost validat prin probe de laborator.
+                    </div>
+
+                    <div style="margin-top: 60px; display: flex; justify-content: space-between; align-items: flex-end;">
+                        <div>
+                            <p>Inspector Autorizat,</p>
+                            <p style="margin-bottom:0;"><strong>Dr. Ing. Dumitrescu Andrei</strong></p>
+                            <p style="font-size:12px; color:#555;">(Semnătură Electronică Securizată)</p>
+                        </div>
+                        <div style="text-align: center; border: 2px solid #000; padding: 10px; font-size: 11px;">
+                            COD UNIC DE VALIDARE<br>
+                            [ ██████████ ]<br>
+                            VERIFICABIL ONLINE
+                        </div>
+                    </div>
+
+                    <div class="pdf-stamp">
+                        MTT PROTECT<br>SIGURANȚĂ<br>VALIDAT
+                    </div>
+                </div>
+            `;
+        }
+
+        // Inițializare
+        renderProducts(produse);
+
+    </script>
+    <!-- STILURILE PENTRU FORMULAR (Nu afectează restul site-ului) -->
+<style>
+    .modal-overlay {
+        position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+        background: rgba(0, 0, 0, 0.6); display: flex; justify-content: center;
+        align-items: center; z-index: 2000; opacity: 0; pointer-events: none; transition: opacity 0.3s ease;
+    }
+    .modal-overlay.active { opacity: 1; pointer-events: auto; }
+    .modal-content {
+        background: #ffffff; width: 90%; max-width: 850px; max-height: 85vh;
+        overflow-y: auto; border-top: 8px solid #002d5b; box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        position: relative; padding: 40px; animation: slideDown 0.4s ease; font-family: 'Roboto', sans-serif;
+    }
+    @keyframes slideDown { from { transform: translateY(-30px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+    .close-modal { position: absolute; top: 15px; right: 20px; font-size: 28px; font-weight: bold; color: #aaa; cursor: pointer; }
+    .close-modal:hover { color: #c0392b; }
+    .form-header { text-align: center; border-bottom: 2px solid #002d5b; padding-bottom: 20px; margin-bottom: 30px; position: relative; }
+    .form-header h2 { margin: 5px 0; color: #002d5b; font-family: 'Playfair Display', serif; font-size: 24px; }
+    .form-header p { margin: 0; font-size: 13px; color: #555; text-transform: uppercase; letter-spacing: 1px; }
+    .form-section-title { background: #e9ecef; color: #001a35; padding: 8px 15px; font-weight: bold; font-size: 14px; margin: 25px 0 15px 0; border-left: 4px solid #d4af37; text-transform: uppercase; }
+    .form-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+    .form-group { display: flex; flex-direction: column; gap: 5px; }
+    .form-group.full-width { grid-column: span 2; }
+    .form-group label { font-size: 13px; font-weight: bold; color: #001a35; }
+    .form-group input, .form-group select, .form-group textarea { padding: 10px; border: 1px solid #dee2e6; border-radius: 4px; font-size: 14px; }
+    .stamp-container {
+        position: absolute; top: 10px; left: 10px; width: 90px; height: 90px;
+        border: 3px dashed rgba(0, 45, 91, 0.4); border-radius: 50%; display: flex;
+        flex-direction: column; align-items: center; justify-content: center;
+        transform: rotate(-15deg); color: rgba(0, 45, 91, 0.5); font-size: 9px; font-weight: bold; text-align: center; pointer-events: none; line-height: 1.2;
+    }
+    .stamp-center { border-top: 1px solid rgba(0, 45, 91, 0.4); border-bottom: 1px solid rgba(0, 45, 91, 0.4); padding: 2px 0; margin-top: 2px; text-transform: uppercase; }
+    .form-actions { margin-top: 30px; text-align: right; }
+    .btn-submit { background-color: #002d5b; color: white; border: none; padding: 12px 30px; font-size: 15px; font-weight: bold; border-radius: 4px; cursor: pointer; }
+    .alert-success { background-color: #d4edda; color: #155724; padding: 15px; border: 1px solid #c3e6cb; border-radius: 4px; margin-bottom: 20px; display: none; text-align: center; }
+    @media (max-width: 768px) { .form-grid { grid-template-columns: 1fr; } .form-group.full-width { grid-column: span 1; } .stamp-container { display: none; } }
+</style>
+
+<!-- STRUCTURA FORMULARULUI (Ascunsă implicit) -->
+<div id="modalReclamatie" class="modal-overlay">
+    <div class="modal-content">
+        <span id="btnInchideModal" class="close-modal">&times;</span>
+        
+        <div class="stamp-container">
+            <div>* MTT PROTECT *</div>
+            <div class="stamp-center">CONFORM</div>
+            <div>ORIGINALULUI</div>
+        </div>
+
+        <div class="form-header">
+            <p>Formular Electronic de Sesizare</p>
+            <h2>FIȘĂ DE RECLAMAȚIE CONSUMATOR</h2>
+            <p>MTT PROTECT - Departamentul de Control și Supraveghere Piață</p>
+        </div>
+
+        <div id="mesajSucces" class="alert-success"></div>
+
+        <form id="formANPC" onsubmit="trimiteReclamatie(event)">
+            <div class="form-section-title">1. Datele Consumatorului (Reclamant)</div>
+            <div class="form-grid">
+                <div class="form-group">
+                    <label>Nume și Prenume *</label>
+                    <input type="text" required placeholder="Ex: Popescu Ioan">
+                </div>
+                <div class="form-group">
+                    <label>Cod Numeric Personal (CNP) *</label>
+                    <input type="text" required maxlength="13" pattern="[0-9]{13}" placeholder="13 cifre">
+                </div>
+                <div class="form-group">
+                    <label>Adresă de Email *</label>
+                    <input type="email" required placeholder="exemplu@mail.ro">
+                </div>
+                <div class="form-group">
+                    <label>Telefon *</label>
+                    <input type="tel" required placeholder="07xx xxx xxx">
+                </div>
+            </div>
+
+            <div class="form-section-title">2. Datele Operatorului Economic</div>
+            <div class="form-grid">
+                <div class="form-group">
+                    <label>Denumire Firmă / Magazin *</label>
+                    <input type="text" required placeholder="Ex: SC SHOPPING SRL">
+                </div>
+                <div class="form-group">
+                    <label>Adresă Site Web / Locație *</label>
+                    <input type="text" required placeholder="Ex: www.sitecomerciant.ro">
+                </div>
+            </div>
+
+            <div class="form-section-title">3. Detalii privind Produsul Neconform</div>
+            <div class="form-grid">
+                <div class="form-group">
+                    <label>Denumire Produs / Serviciu *</label>
+                    <input type="text" required placeholder="Ex: Telefon defect">
+                </div>
+                <div class="form-group">
+                    <label>Număr Factură / Bon Fiscal *</label>
+                    <input type="text" required placeholder="Ex: Bon nr. 1234">
+                </div>
+                <div class="form-group full-width">
+                    <label>Descrierea detaliată a neconformității *</label>
+                    <textarea rows="4" required placeholder="Descrieți problema întâmpinată..."></textarea>
+                </div>
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="btn-submit">ÎNREGISTREAZĂ RECLAMAȚIA</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- LOGICA JAVASCRIPT -->
+<script>
+    const modal = document.getElementById('modalReclamatie');
+    const btnDeschide = document.getElementById('btnDeschideReclamatie');
+    const btnInchide = document.getElementById('btnInchideModal');
+    const form = document.getElementById('formANPC');
+    const mesajSucces = document.getElementById('mesajSucces');
+
+    btnDeschide.addEventListener('click', () => {
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    });
+
+    btnInchide.addEventListener('click', inchideModal);
+    modal.addEventListener('click', (e) => { if (e.target === modal) inchideModal(); });
+
+    function inchideModal() {
+        modal.classList.remove('active');
+        document.body.style.overflow = 'auto';
+        setTimeout(() => {
+            form.style.display = 'block';
+            mesajSucces.style.display = 'none';
+            form.reset();
+        }, 300);
+    }
+
+    function trimiteReclamatie(event) {
+        event.preventDefault();
+        const nrInregistrare = "MTT-" + Math.floor(100000 + Math.random() * 900000) + " / 2026";
+        form.style.display = 'none';
+        mesajSucces.innerHTML = `
+            <p style="font-size: 18px; margin-bottom: 10px; font-weight: bold;">✔️ Reclamația a fost înregistrată cu succes!</p>
+            <p style="font-size: 14px; font-weight: normal; color: #333; line-height: 1.5;">
+                Număr de dosar alocat: <strong>${nrInregistrare}</strong>.<br>
+                Cazul dumneavoastră a fost trimis spre analiză departamentului de control <strong>MTT Protect</strong>.
+            </p>
+        `;
+        mesajSucces.style.display = 'block';
+        setTimeout(inchideModal, 5000);
+    }
+</script>
+</body>
+</html>
